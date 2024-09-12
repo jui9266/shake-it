@@ -1,15 +1,14 @@
 import Image from "next/image";
 import CockTail from "../../public/assets/images/cocktail/cocktail.jpg";
 import Visual from "@/components/main/Visual";
-import { createClient } from "@/utils/supabase/server";
+// import { createClient } from "@/utils/supabase/server";
 
 export default async function Main() {
-  const supabase = createClient();
+  // const supabase = createClient();
 
-  const { data } = await supabase.from("cocktail").select();
+  // const { data } = await supabase.from("cocktail").select("*");
   return (
     <div>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
       <Visual />
       <div className="w-full p-5">
         <h2 className="text-lg font-semibold mb-5">인기 레시피</h2>
