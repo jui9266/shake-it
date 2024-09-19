@@ -30,7 +30,7 @@ const Visual = () => {
               간얼음을 넣어 먹으면 좀더 맛있어요
             </p>
             <Link
-              href={"/recipe/3"}
+              href={"/cocktail/3"}
               className="py-3 px-5 bg-white text-[#000033] rounded-lg font-semibold"
             >
               레시피 보러가기
@@ -60,7 +60,7 @@ const Visual = () => {
               간얼음을 넣어 먹으면 좀더 맛있어요
             </p>
             <Link
-              href={"/recipe/3"}
+              href={"/cocktail/3"}
               className="py-3 px-5 bg-white text-[#000033] rounded-lg font-semibold"
             >
               레시피 보러가기
@@ -90,7 +90,7 @@ const Visual = () => {
               간얼음을 넣어 먹으면 좀더 맛있어요
             </p>
             <Link
-              href={"/recipe/3"}
+              href={"/cocktail/3"}
               className="py-3 px-5 bg-white text-[#000033] rounded-lg font-semibold"
             >
               레시피 보러가기

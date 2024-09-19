@@ -11,3 +11,15 @@ export const getCocktails = async () => {
 
   return data;
 };
+
+export const getCocktail = async (id: string) => {
+  const supabase = createClient();
+
+  const { data }: PostgrestSingleResponse<Cocktail> = await supabase
+    .from("cocktail")
+    .select(`* `)
+    .eq("id", id)
+    .single();
+
+  return data;
+};
