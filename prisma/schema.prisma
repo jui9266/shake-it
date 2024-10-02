@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Cocktail {
+  id                 BigInt               @id(map: "cocktail_pkey") @default(autoincrement())
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  name               String               @db.VarChar
+  description        String?
+  alcohol_degree     Int                  @default(3) @db.SmallInt
+  glass_type         String              
+  base_alcohol       String              
+  Ingredient         Ingredient?          @relation(fields: [base_alcohol], references: [name], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_base_ alcohol_fkey")
+  Glass              Glass?               @relation(fields: [glass_type], references: [type], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_glass_type_fkey")
+  CocktailIngredient CocktailIngredient[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model CocktailIngredient {
+  id                  BigInt      @id(map: "cocktail_ingredient_pkey") @default(autoincrement())
+  created_at          DateTime    @default(now()) @db.Timestamptz(6)
+  cocktail_id         BigInt?
+  Cocktail            Cocktail?   @relation(fields: [cocktail_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_ingredient_cocktail_id_fkey")
+  Ingredient          Ingredient? @relation(fields: [cocktail_ingredient], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_ingredient_cocktail_ingredient_fkey")
+  cocktail_ingredient BigInt?
+
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Glass {
+  id         BigInt     @default(autoincrement())
+  created_at DateTime   @default(now()) @db.Timestamptz(6)
+  type       String     @unique(map: "glass_type_type_key")
+  Cocktail   Cocktail[]
+
+  @@id([id, type], map: "glass_type_pkey")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Ingredient {
+  id                 BigInt               @id(map: "ingredients_pkey") @default(autoincrement())
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  name               String               @unique(map: "ingredients_ingredients_name_key")
+  Cocktail           Cocktail[]
+  CocktailIngredient CocktailIngredient[]
+}

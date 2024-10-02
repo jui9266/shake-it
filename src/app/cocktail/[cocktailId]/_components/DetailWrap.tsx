@@ -14,7 +14,7 @@ const DetailWrap = ({ cocktailId }: { cocktailId: string }) => {
     staleTime: 0,
   });
 
-  if (!data) return null;
+  if (!data) return <div>로딩중....</div>;
   return (
     <div className="flex sm:flex-row flex-col pb-20">
       <div className="flex flex-1 items-center justify-center px-10">
