@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Cocktail" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" VARCHAR NOT NULL,
     "description" TEXT,
@@ -13,17 +13,17 @@ CREATE TABLE "Cocktail" (
 
 -- CreateTable
 CREATE TABLE "CocktailIngredient" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "cocktail_id" BIGINT,
-    "cocktail_ingredient" BIGINT,
+    "cocktail_id" INTEGER,
+    "cocktail_ingredient" INTEGER,
 
     CONSTRAINT "cocktail_ingredient_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Glass" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "type" TEXT NOT NULL,
 
@@ -32,7 +32,7 @@ CREATE TABLE "Glass" (
 
 -- CreateTable
 CREATE TABLE "Ingredient" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT NOT NULL,
 

@@ -5,7 +5,8 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { getCocktails } from "@/utils/supabase/api/cocktail/getCocktails";
+import IngredientForm from "@/components/main/IngredientForm";
+import { getCocktails } from "@/utils/getCocktails";
 
 export default async function Main() {
   const queryClient = new QueryClient();
@@ -18,6 +19,7 @@ export default async function Main() {
   return (
     <div>
       <Visual />
+      <IngredientForm />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <CocktailList />
       </HydrationBoundary>

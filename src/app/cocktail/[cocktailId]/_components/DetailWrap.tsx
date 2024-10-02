@@ -5,12 +5,12 @@ import Image from "next/image";
 
 import Visual from "../../../../../public/assets/images/main/visual1.png";
 import { useQuery } from "@tanstack/react-query";
-import { getCocktail } from "@/utils/supabase/api/cocktail/getCocktails";
+import { getCocktails } from "@/utils/getCocktails";
 
 const DetailWrap = ({ cocktailId }: { cocktailId: string }) => {
   const { data } = useQuery({
     queryKey: ["cocktail", cocktailId],
-    queryFn: () => getCocktail(cocktailId),
+    queryFn: () => getCocktails(),
     staleTime: 0,
   });
 

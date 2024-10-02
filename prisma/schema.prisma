@@ -11,7 +11,7 @@ datasource db {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Cocktail {
-  id                 BigInt               @id(map: "cocktail_pkey") @default(autoincrement())
+  id                 Int                  @id(map: "cocktail_pkey") @default(autoincrement())
   created_at         DateTime             @default(now()) @db.Timestamptz(6)
   name               String               @db.VarChar
   description        String?
@@ -25,19 +25,19 @@ model Cocktail {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model CocktailIngredient {
-  id                  BigInt      @id(map: "cocktail_ingredient_pkey") @default(autoincrement())
+  id                  Int         @id(map: "cocktail_ingredient_pkey") @default(autoincrement())
   created_at          DateTime    @default(now()) @db.Timestamptz(6)
-  cocktail_id         BigInt?
+  cocktail_id         Int?
   Cocktail            Cocktail?   @relation(fields: [cocktail_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_ingredient_cocktail_id_fkey")
   Ingredient          Ingredient? @relation(fields: [cocktail_ingredient], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_ingredient_cocktail_ingredient_fkey")
-  cocktail_ingredient BigInt?
+  cocktail_ingredient Int?
 
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Glass {
-  id         BigInt     @default(autoincrement())
+  id         Int        @default(autoincrement())
   created_at DateTime   @default(now()) @db.Timestamptz(6)
   type       String     @unique(map: "glass_type_type_key")
   Cocktail   Cocktail[]
@@ -48,7 +48,7 @@ model Glass {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Ingredient {
-  id                 BigInt               @id(map: "ingredients_pkey") @default(autoincrement())
+  id                 Int                  @id(map: "ingredients_pkey") @default(autoincrement())
   created_at         DateTime             @default(now()) @db.Timestamptz(6)
   name               String               @unique(map: "ingredients_ingredients_name_key")
   Cocktail           Cocktail[]

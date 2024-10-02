@@ -1,12 +1,34 @@
 "use client";
-
-import { getCocktails } from "@/utils/supabase/api/cocktail/getCocktails";
-import { useQuery } from "@tanstack/react-query";
+// import { getCocktails } from "@/utils/getCocktails";
+// import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import CocktilItem from "./CocktilItem";
 
+const data = [
+  {
+    id: 1,
+    created_at: "2024-10-02T08:59:37.284Z",
+    name: "갓마더",
+    description: "설명설명설명",
+    alcohol_degree: 2,
+    glass_type: "온더락",
+    base_alcohol: "보드카",
+  },
+  {
+    id: 2,
+    created_at: "2024-10-02T08:59:37.284Z",
+    name: "갓파더",
+    description: "설명설명설명",
+    alcohol_degree: 3,
+    glass_type: "온더락",
+    base_alcohol: "위스키",
+  },
+];
+
 const CocktailList = () => {
-  const { data } = useQuery({ queryKey: ["cocktails"], queryFn: getCocktails });
+  // const { data } = useQuery({ queryKey: ["cocktails"], queryFn: getCocktails });
+
+  // console.log(data);
 
   return (
     <div className="w-full p-5">

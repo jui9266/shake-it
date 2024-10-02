@@ -1,11 +1,11 @@
 import React from "react";
-import { getCocktail } from "@/utils/supabase/api/cocktail/getCocktails";
 import DetailWrap from "./_components/DetailWrap";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { getCocktails } from "@/utils/getCocktails";
 
 const RecipePage = async ({ params }: { params: { cocktailId: string } }) => {
   const cocktailId = params.cocktailId;
@@ -14,7 +14,7 @@ const RecipePage = async ({ params }: { params: { cocktailId: string } }) => {
 
   await queryClient.prefetchQuery({
     queryKey: ["cocktail", cocktailId],
-    queryFn: () => getCocktail(cocktailId),
+    queryFn: () => getCocktails(),
     staleTime: 1,
   });
 
