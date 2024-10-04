@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import Visual from "../../../../../public/assets/images/main/visual1.png";
 import { useQuery } from "@tanstack/react-query";
-import { getCocktails } from "@/utils/getCocktails";
+import { getCocktails } from "@/app/cocktail/[cocktailId]/_lib/getCocktails";
 
 const DetailWrap = ({ cocktailId }: { cocktailId: string }) => {
   const { data } = useQuery({

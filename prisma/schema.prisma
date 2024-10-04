@@ -8,49 +8,40 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Cocktail {
-  id                 Int                  @id(map: "cocktail_pkey") @default(autoincrement())
-  created_at         DateTime             @default(now()) @db.Timestamptz(6)
-  name               String               @db.VarChar
-  description        String?
-  alcohol_degree     Int                  @default(3) @db.SmallInt
-  glass_type         String              
-  base_alcohol       String              
-  Ingredient         Ingredient?          @relation(fields: [base_alcohol], references: [name], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_base_ alcohol_fkey")
-  Glass              Glass?               @relation(fields: [glass_type], references: [type], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_glass_type_fkey")
-  CocktailIngredient CocktailIngredient[]
+  id            Int                      @id(map: "cocktail_pkey") @default(autoincrement())
+  createdAt     DateTime                 @default(now()) @db.Timestamptz(6)
+  name          String                   @db.VarChar
+  description   String?
+  alcoholDegree Int                      @default(3) @db.SmallInt
+  baseAlcohol   Ingredient               @relation(fields: [baseAlcoholId], references: [id])
+  baseAlcoholId Int
+  ingredients   IngredientsOnCocktails[]
+  glass         Glass                    @relation(fields: [glassId], references: [id])
+  glassId       Int
+  order         String[]
 }
 
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model CocktailIngredient {
-  id                  Int         @id(map: "cocktail_ingredient_pkey") @default(autoincrement())
-  created_at          DateTime    @default(now()) @db.Timestamptz(6)
-  cocktail_id         Int?
-  Cocktail            Cocktail?   @relation(fields: [cocktail_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_ingredient_cocktail_id_fkey")
-  Ingredient          Ingredient? @relation(fields: [cocktail_ingredient], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cocktail_ingredient_cocktail_ingredient_fkey")
-  cocktail_ingredient Int?
-
-}
-
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Glass {
-  id         Int        @default(autoincrement())
-  created_at DateTime   @default(now()) @db.Timestamptz(6)
-  type       String     @unique(map: "glass_type_type_key")
-  Cocktail   Cocktail[]
-
-  @@id([id, type], map: "glass_type_pkey")
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now()) @db.Timestamptz(6)
+  type      String
+  cocktails Cocktail[]
 }
 
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Ingredient {
-  id                 Int                  @id(map: "ingredients_pkey") @default(autoincrement())
-  created_at         DateTime             @default(now()) @db.Timestamptz(6)
-  name               String               @unique(map: "ingredients_ingredients_name_key")
-  Cocktail           Cocktail[]
-  CocktailIngredient CocktailIngredient[]
+  id        Int                      @id(map: "ingredients_pkey") @default(autoincrement())
+  createdAt DateTime                 @default(now()) @db.Timestamptz(6)
+  name      String                   @unique(map: "ingredients_ingredients_name_key")
+  cocktails IngredientsOnCocktails[]
+  base      Cocktail[]
+}
+
+model IngredientsOnCocktails {
+  id           Int        @id @default(autoincrement())
+  cocktail     Cocktail   @relation(fields: [cocktailId], references: [id])
+  cocktailId   Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+  createdAt    DateTime   @default(now()) @db.Timestamptz(6)
 }

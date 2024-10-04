@@ -6,13 +6,14 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import IngredientForm from "@/components/main/IngredientForm";
-import { getCocktails } from "@/utils/getCocktails";
+import { getCocktails } from "@/app/cocktail/[cocktailId]/_lib/getCocktails";
+// import CreateButton from "@/components/main/CreateButton";
 
 export default async function Main() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["cocktails"],
+    queryKey: ["ingredients"],
     queryFn: getCocktails,
   });
 
@@ -20,6 +21,7 @@ export default async function Main() {
     <div>
       <Visual />
       <IngredientForm />
+      {/* <CreateButton /> */}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <CocktailList />
       </HydrationBoundary>

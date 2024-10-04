@@ -5,7 +5,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { getCocktails } from "@/utils/getCocktails";
+import { getCocktails } from "@/app/cocktail/[cocktailId]/_lib/getCocktails";
 
 const RecipePage = async ({ params }: { params: { cocktailId: string } }) => {
   const cocktailId = params.cocktailId;
